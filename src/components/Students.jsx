@@ -8,6 +8,8 @@ class Students extends Component {
 
     this.state = {
       addModal: false,
+      search: "",
+      searchedStudents: [],
       students: [
         {
           id: 1,
@@ -58,9 +60,27 @@ class Students extends Component {
     });
   };
 
+  componentDidMount() {
+    this.setState({
+      searchedStudents: this.state.students,
+    });
+  }
+
+  handleSearchChange = (e) => {
+    const text = e.target.value;
+    this.setState({ search: text });
+    this.setState({
+      searchedStudents: this.state.students.filter(
+        (student) =>
+          student.firstName.toLowerCase().includes(text.toLowerCase()) ||
+          student.lastName.toLowerCase().includes(text.toLowerCase())
+      ),
+    });
+  };
+
   render() {
-    const { students, addModal } = this.state;
-    const { closeAddModal, openAddModal } = this;
+    const { search, searchedStudents, addModal } = this.state;
+    const { handleSearchChange, closeAddModal, openAddModal } = this;
     return (
       <div className="container py-3  ">
         <div className="w-100">
@@ -71,6 +91,9 @@ class Students extends Component {
             type="text"
             placeholder="Search..."
             className="form-control p-3 w-75"
+            id="search"
+            value={search}
+            onChange={handleSearchChange}
           />
           <select name="filter" id="filter" className="form-select p-3 w-25">
             <option value="all">Gender</option>
@@ -84,7 +107,10 @@ class Students extends Component {
             Add Contact
           </button>
         </div>
-        <StudentList students={students} deleteStudent={this.deleteStudent} />
+        <StudentList
+          students={searchedStudents}
+          deleteStudent={this.deleteStudent}
+        />
         <AddStudent
           addModal={addModal}
           closeAddModal={closeAddModal}
