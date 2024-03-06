@@ -9,7 +9,8 @@ class Students extends Component {
     this.state = {
       addModal: false,
       search: "",
-      searchedStudents: [],
+      filter: "",
+      filteredStudents: [],
       students: [
         {
           id: 1,
@@ -43,11 +44,13 @@ class Students extends Component {
   closeAddModal = () => this.setState({ addModal: false });
 
   addStudent = (student) => {
+    const newStudents = [
+      ...this.state.students,
+      { ...student, id: this.state.students.length + 1 },
+    ];
     this.setState({
-      students: [
-        ...this.state.students,
-        { ...student, id: this.state.students.length + 1 },
-      ],
+      students: newStudents,
+      filtered: newStudents,
     });
   };
 
@@ -62,7 +65,7 @@ class Students extends Component {
 
   componentDidMount() {
     this.setState({
-      searchedStudents: this.state.students,
+      filteredStudents: this.state.students,
     });
   }
 
@@ -70,7 +73,7 @@ class Students extends Component {
     const text = e.target.value;
     this.setState({ search: text });
     this.setState({
-      searchedStudents: this.state.students.filter(
+      filteredStudents: this.state.students.filter(
         (student) =>
           student.firstName.toLowerCase().includes(text.toLowerCase()) ||
           student.lastName.toLowerCase().includes(text.toLowerCase())
@@ -78,9 +81,33 @@ class Students extends Component {
     });
   };
 
+  handleFilterChange = (e) => {
+    const group = e.target.value;
+    this.setState({
+      filter: group,
+    });
+    const filtered = this.state.students.filter((student) => {
+      student.group === group;
+    });
+    this.setState({
+      filteredStudents: filtered,
+    });
+  };
+
+  componentDidMount() {
+    this.setState({
+      filteredStudents: this.state.students,
+    });
+  }
+
   render() {
-    const { search, searchedStudents, addModal } = this.state;
-    const { handleSearchChange, closeAddModal, openAddModal } = this;
+    const { search, filter, filteredStudents, addModal } = this.state;
+    const {
+      handleSearchChange,
+      handleFilterChange,
+      closeAddModal,
+      openAddModal,
+    } = this;
     return (
       <div className="container py-3  ">
         <div className="w-100">
@@ -95,7 +122,13 @@ class Students extends Component {
             value={search}
             onChange={handleSearchChange}
           />
-          <select name="filter" id="filter" className="form-select p-3 w-25">
+          <select
+            name="filter"
+            id="filter"
+            className="form-select p-3 w-25"
+            value={filter}
+            onChange={handleFilterChange}
+          >
             <option value="all">Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -108,7 +141,7 @@ class Students extends Component {
           </button>
         </div>
         <StudentList
-          students={searchedStudents}
+          students={filteredStudents}
           deleteStudent={this.deleteStudent}
         />
         <AddStudent
