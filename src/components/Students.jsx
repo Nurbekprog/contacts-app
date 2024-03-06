@@ -13,22 +13,25 @@ class Students extends Component {
           id: 1,
           firstName: "John",
           lastName: "Doe",
-          group: "React N38",
+          group: "Male",
           doesWork: false,
+          number: "+998 91 552 90 34",
         },
         {
           id: 2,
           firstName: "Jane",
           lastName: "Doe",
-          group: "React N50",
+          group: "Female",
           doesWork: false,
+          number: "+998 93 333 33 34",
         },
         {
           id: 3,
           firstName: "Jack",
           lastName: "Smith",
-          group: "React N45",
+          group: "Male",
           doesWork: true,
+          number: "+998 99 342 34 34",
         },
       ],
     };
@@ -81,7 +84,7 @@ class Students extends Component {
             Add Contact
           </button>
         </div>
-        <StudentList students={students} deleteStudent ={this.deleteStudent} />
+        <StudentList students={students} deleteStudent={this.deleteStudent} />
         <AddStudent
           addModal={addModal}
           closeAddModal={closeAddModal}

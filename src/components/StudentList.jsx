@@ -11,8 +11,9 @@ class StudentList extends Component {
               <th>#</th>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>Group</th>
+              <th>Gender</th>
               <th>Does Work?</th>
+              <th>Number</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -24,6 +25,7 @@ class StudentList extends Component {
                 <td>{student.lastName}</td>
                 <td>{student.group}</td>
                 <td>{student.doesWork ? "✅" : "❌"}</td>
+                <td>{student.number}</td>
                 <td className="d-flex gap-3">
                   <button className="btn btn-warning btn-sm">Edit</button>
                   <button

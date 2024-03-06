@@ -9,8 +9,9 @@ class AddStudent extends Component {
       student: {
         firstName: "",
         lastName: "",
-        gender: "",
+        group: "",
         doesWork: false,
+        number: '',
       },
     };
   }
@@ -31,7 +32,7 @@ class AddStudent extends Component {
   };
   render() {
     const { addModal, closeAddModal } = this.props;
-    const { firstName, lastName, gender, doesWork } = this.state.student;
+    const { firstName, lastName, group, doesWork, number } = this.state.student;
     const { handleChange } = this;
     return (
       <div>
@@ -62,11 +63,11 @@ class AddStudent extends Component {
                 />
               </div>
               <div className="mb-3 my-2">
-                <label htmlFor="gender">Gender</label>
+                <label htmlFor="group">Gender</label>
                 <select
-                  name="gender"
-                  id="gender"
-                  value={gender}
+                  name="group"
+                  id="group"
+                  value={group}
                   onChange={handleChange}
                   className="form-select"
                 >
@@ -93,6 +94,16 @@ class AddStudent extends Component {
                 <label class="form-check-label" for="doesWork">
                   Does Work?
                 </label>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="number">Number</label>
+                <input
+                  type="tel"
+                  id="number"
+                  value={number}
+                  onChange={handleChange}
+                  className="form-control"
+                />
               </div>
             </form>
           </Modal.Body>
