@@ -9,7 +9,7 @@ class AddStudent extends Component {
       student: {
         firstName: "",
         lastName: "",
-        group: "",
+        gender: "",
         doesWork: false,
       },
     };
@@ -31,7 +31,7 @@ class AddStudent extends Component {
   };
   render() {
     const { addModal, closeAddModal } = this.props;
-    const { firstName, lastName, group, doesWork } = this.state.student;
+    const { firstName, lastName, gender, doesWork } = this.state.student;
     const { handleChange } = this;
     return (
       <div>
@@ -62,19 +62,17 @@ class AddStudent extends Component {
                 />
               </div>
               <div className="mb-3 my-2">
-                <label htmlFor="group">Group</label>
+                <label htmlFor="gender">Gender</label>
                 <select
-                  name="group"
-                  id="group"
-                  value={group}
+                  name="gender"
+                  id="gender"
+                  value={gender}
                   onChange={handleChange}
                   className="form-select"
                 >
-                  <option value="React N38">Selecting</option>
-                  <option value="React N38">React N38</option>
-                  <option value="React N45">React N45</option>
-                  <option value="React N47">React N47</option>
-                  <option value="React N50">React N50</option>
+                  <option value="male">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
               <div class="form-check py-2">

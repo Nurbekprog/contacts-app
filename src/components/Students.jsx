@@ -47,9 +47,10 @@ class Students extends Component {
   };
 
   deleteStudent = (studentId) => {
+    console.log(studentId);
     this.setState({
       students: this.state.students.filter(
-        (student) => student !== studentId
+        (student) => student.id !== studentId
       ),
     });
   };
